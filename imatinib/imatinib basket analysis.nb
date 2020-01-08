@@ -1,0 +1,1112 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     45585,       1104]
+NotebookOptionsPosition[     40732,       1012]
+NotebookOutlinePosition[     41078,       1027]
+CellTagsIndexPosition[     41035,       1024]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Supplementary Table S4A", "Title",
+ CellChangeTimes->{{3.7862082585277996`*^9, 
+  3.786208263635722*^9}},ExpressionUUID->"0ee4d973-7dc1-4e2e-bbbf-\
+7b31c4f5ffdd"],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.7317612598607864`*^9, 
+  3.731761268696292*^9}},ExpressionUUID->"43d61af5-d8b4-4685-8e37-\
+a91d91fea150"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+       "\"\<imatinib responses.xlsx\>\""}], ",", "\"\<XlSX\>\""}], "]"}], 
+    "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.727392891599275*^9, 3.7273929141535654`*^9}, {
+  3.7531480592295685`*^9, 3.753148071034244*^9}, {3.753194024030698*^9, 
+  3.7531940364172134`*^9}},ExpressionUUID->"3f0704e5-2254-4c0a-89bb-\
+1535e67281c6"],
+
+Cell[CellGroupData[{
+
+Cell["analysis of all tumor types, by RESPONSE RATE (yes or no)", "Section",
+ CellChangeTimes->{{3.727395046924553*^9, 3.727395051867835*^9}, {
+  3.753209944905319*^9, 
+  3.7532099508067408`*^9}},ExpressionUUID->"3a42882b-6b06-417e-a757-\
+2a67c85343d4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"as", " ", "a", " ", 
+    RowBox[{"list", ":", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"CR", ",", " ", "PR", ",", " ", "SD", ",", " ", "PD"}], 
+      "}"}]}]}], "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"AllResponsesMeasurements", "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{"Total", ",", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"data", "\[LeftDoubleBracket]", 
+         RowBox[{
+          RowBox[{"2", ";;"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+         "\[RightDoubleBracket]"}], "\[Transpose]"}], ")"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\>\"", "\[Rule]", "0"}], "}"}]}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.727392946548418*^9, 3.7273929942021437`*^9}, {
+  3.753148078922695*^9, 3.7531480790347013`*^9}, {3.7531940664256506`*^9, 
+  3.7531941612867975`*^9}},ExpressionUUID->"e6f137c9-6d34-42fa-a633-\
+71d834f10748"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"12.`", ",", "12.`", ",", "37.`", ",", "84.`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.753194100494948*^9, 3.753194162010547*^9}, 
+   3.7532099527696047`*^9, 3.7533978411901646`*^9, 3.7621037215781794`*^9, 
+   3.762104210507375*^9, 3.7621047702660756`*^9, 3.7862040202468057`*^9, 
+   3.786277604793276*^9},ExpressionUUID->"d085187b-7d81-4336-b8f8-\
+973e8aa34ce4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "probability", " ", "of", " ", "a", " ", "given", " ", "response", " ", 
+    "type", " ", 
+    RowBox[{"(", 
+     RowBox[{"CR", ",", " ", "PR", ",", " ", "SD", ",", " ", "PD"}], ")"}], 
+    " ", "under", " ", "the", " ", "null", " ", "hypothesis"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"NullDistribution", "=", 
+    RowBox[{"AllResponsesMeasurements", "/", 
+     RowBox[{"Total", "[", "AllResponsesMeasurements", "]"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Total", "[", "NullDistribution", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.753194664829339*^9, 
+  3.7531947176211343`*^9}},ExpressionUUID->"169a3f87-fdb4-4d88-be87-\
+4bd16eee8fe1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.08275862068965517`", ",", "0.08275862068965517`", ",", 
+   "0.25517241379310346`", ",", "0.5793103448275863`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7531946767094665`*^9, 3.7531947184368734`*^9}, 
+   3.7531947540037823`*^9, 3.753209955572053*^9, 3.7533978420642147`*^9, 
+   3.762103721608099*^9, 3.762104210578188*^9, 3.762104770358404*^9, 
+   3.7862040203066454`*^9, 
+   3.78627760494089*^9},ExpressionUUID->"78762ceb-8610-4362-8379-\
+03762898e45e"],
+
+Cell[BoxData["1.`"], "Output",
+ CellChangeTimes->{{3.7531946767094665`*^9, 3.7531947184368734`*^9}, 
+   3.7531947540037823`*^9, 3.753209955572053*^9, 3.7533978420642147`*^9, 
+   3.762103721608099*^9, 3.762104210578188*^9, 3.762104770358404*^9, 
+   3.7862040203066454`*^9, 
+   3.7862776049625373`*^9},ExpressionUUID->"d39ea82c-5d1e-4d10-9cb4-\
+d6478841add0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"VolumeChangeMeasurementsAndTumorType", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"Select", "[", 
+      RowBox[{
+       RowBox[{"data", "\[LeftDoubleBracket]", 
+        RowBox[{
+         RowBox[{"2", ";;"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+        "\[RightDoubleBracket]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+         "\[NotEqual]", "\"\<NA\>\""}], "&"}]}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"NumberQ", "[", 
+       RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+       "]"}], "&"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.72739302684101*^9, 3.7273930725706263`*^9}, {
+  3.7531481350829077`*^9, 3.753148135962958*^9}, {3.753148287338616*^9, 
+  3.7531482888107004`*^9}, {3.753194193286415*^9, 
+  3.7531942377558084`*^9}},ExpressionUUID->"1ba18425-d139-44f7-aea9-\
+3ad831346b02"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["VolumeChangeMeasurementsAndTumorType"], "Input",ExpressionUUID->"69a4e21a-5142-4f52-89f0-792e26690795"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"Synovial sarcoma\"\>", ",", "0.`", ",", "1.`", ",", "3.`", 
+     ",", "11.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Dermatofibrosarcoma protuberans\"\>", ",", "4.`", ",", "6.`",
+      ",", "0.`", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Leiomyosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "1.`", ",",
+      "8.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Liposarcoma\"\>", ",", "0.`", ",", "0.`", ",", "5.`", ",", 
+     "6.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Chondrosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "1.`", ",",
+      "5.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Ewing's sarcoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", 
+     ",", "3.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Angiosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+     "2.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Rhabdomyosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", 
+     ",", "2.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Aggressive fibromatosis\"\>", ",", "0.`", ",", "2.`", ",", 
+     "8.`", ",", "7.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Chordoma\"\>", ",", "0.`", ",", "0.`", ",", "4.`", ",", 
+     "0.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Desmoplastic small round cell tumor\"\>", ",", "0.`", ",", 
+     "0.`", ",", "0.`", ",", "5.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Neurofibrosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "2.`", 
+     ",", "0.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Malignant schwannoma\"\>", ",", "0.`", ",", "0.`", ",", 
+     "0.`", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Osteosarcoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+     "2.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Adenoid cystic carcinoma\"\>", ",", "0.`", ",", "0.`", ",", 
+     "6.`", ",", "5.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"mesothelioma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+     "3.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Malignant melanoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", 
+     ",", "4.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Intraocular melanoma\"\>", ",", "0.`", ",", "0.`", ",", 
+     "0.`", ",", "3.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Breast carcinoma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", 
+     ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Hypereosinophilic syndrome\"\>", ",", "5.`", ",", "1.`", ",",
+      "1.`", ",", "6.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Multiple myeloma\"\>", ",", "0.`", ",", "0.`", ",", "0.`", 
+     ",", "6.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Myelofibrosis\"\>", ",", "0.`", ",", "0.`", ",", "5.`", ",", 
+     "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Myeloproliferative disorders\"\>", ",", "3.`", ",", "1.`", 
+     ",", "0.`", ",", "2.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Systemic mastocytosis\"\>", ",", "0.`", ",", "1.`", ",", 
+     "1.`", ",", "0.`"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.740502448160812*^9, 3.740733104810416*^9, 3.740733355183315*^9, 
+   3.7407336928723297`*^9, 3.74073437577446*^9, 3.740737055873741*^9, 
+   3.7409941154578056`*^9, 3.7409960081136045`*^9, 3.7410098280477915`*^9, 
+   3.741267260513687*^9, 3.753148140466215*^9, 3.7531482370347385`*^9, 
+   3.7531482913848476`*^9, {3.7531941966641893`*^9, 3.75319420668867*^9}, 
+   3.7531942398493185`*^9, 3.7531943403674726`*^9, 3.753194755739701*^9, 
+   3.753209957664593*^9, 3.7533978433952904`*^9, 3.7621037216749215`*^9, 
+   3.7621042107018633`*^9, 3.762104770512059*^9, 3.786204020448265*^9, 
+   3.7862776052633495`*^9},ExpressionUUID->"55feb3b4-964d-46ee-b749-\
+c9587281ecd6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "total", " ", "numbers", " ", "of", " ", "measured", " ", "cancers", " ", 
+    "per", " ", "cancer", " ", "type"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"TumorTypes", "=", 
+     RowBox[{"Sort", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+          "VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+           RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+          RowBox[{"Map", "[", 
+           RowBox[{"Total", ",", 
+            RowBox[{
+            "VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+             RowBox[{"All", ",", 
+              RowBox[{"{", 
+               RowBox[{"2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+             "\[RightDoubleBracket]"}]}], "]"}]}], "}"}], "\[Transpose]"}], 
+       ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#1", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+          ">", 
+         RowBox[{
+         "#2", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], 
+        "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"TumorTypes", "//", "TableForm"}]}]}]], "Input",
+ CellChangeTimes->{{3.7273930926347733`*^9, 3.727393155241355*^9}, {
+  3.74050246002703*^9, 3.74050246394849*^9}, {3.7531481754842186`*^9, 
+  3.753148179130427*^9}, {3.753148294859046*^9, 3.7531482983782473`*^9}, {
+  3.753194257998999*^9, 3.7531943688602552`*^9}, {3.753195636656886*^9, 
+  3.753195664850991*^9}},ExpressionUUID->"c833716e-7d83-4e2b-8d8f-\
+83068e110406"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Aggressive fibromatosis\"\>", "17.`"},
+    {"\<\"Synovial sarcoma\"\>", "15.`"},
+    {"\<\"Hypereosinophilic syndrome\"\>", "13.`"},
+    {"\<\"Adenoid cystic carcinoma\"\>", "11.`"},
+    {"\<\"Liposarcoma\"\>", "11.`"},
+    {"\<\"Dermatofibrosarcoma protuberans\"\>", "11.`"},
+    {"\<\"Leiomyosarcoma\"\>", "9.`"},
+    {"\<\"Myeloproliferative disorders\"\>", "6.`"},
+    {"\<\"Myelofibrosis\"\>", "6.`"},
+    {"\<\"Multiple myeloma\"\>", "6.`"},
+    {"\<\"Chondrosarcoma\"\>", "6.`"},
+    {"\<\"Desmoplastic small round cell tumor\"\>", "5.`"},
+    {"\<\"Malignant melanoma\"\>", "4.`"},
+    {"\<\"Chordoma\"\>", "4.`"},
+    {"\<\"Intraocular melanoma\"\>", "3.`"},
+    {"\<\"mesothelioma\"\>", "3.`"},
+    {"\<\"Ewing's sarcoma\"\>", "3.`"},
+    {"\<\"Systemic mastocytosis\"\>", "2.`"},
+    {"\<\"Osteosarcoma\"\>", "2.`"},
+    {"\<\"Neurofibrosarcoma\"\>", "2.`"},
+    {"\<\"Rhabdomyosarcoma\"\>", "2.`"},
+    {"\<\"Angiosarcoma\"\>", "2.`"},
+    {"\<\"Breast carcinoma\"\>", "1.`"},
+    {"\<\"Malignant schwannoma\"\>", "1.`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.7531943179233727`*^9, 3.7531943707377357`*^9}, 
+   3.753194756440884*^9, {3.753195637843277*^9, 3.753195665618906*^9}, 
+   3.7532099584621754`*^9, 3.753397843890319*^9, 3.762103721710823*^9, 
+   3.7621042107617264`*^9, 3.762104770604811*^9, 3.7862040205101*^9, 
+   3.786277605679386*^9},ExpressionUUID->"9da1d8cb-d521-41c6-bd35-\
+763f715822ae"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ResponseScoreFromCategories", "[", "listofresponses_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"1", "*", 
+      RowBox[{
+      "listofresponses", "\[LeftDoubleBracket]", "1", 
+       "\[RightDoubleBracket]"}]}], "+", 
+     RowBox[{"1", "*", 
+      RowBox[{
+      "listofresponses", "\[LeftDoubleBracket]", "2", 
+       "\[RightDoubleBracket]"}]}], "+", 
+     RowBox[{"0", "*", 
+      RowBox[{
+      "listofresponses", "\[LeftDoubleBracket]", "3", 
+       "\[RightDoubleBracket]"}]}], "+", 
+     RowBox[{"0", "*", 
+      RowBox[{
+      "listofresponses", "\[LeftDoubleBracket]", "4", 
+       "\[RightDoubleBracket]"}]}]}], ")"}], "/", 
+   RowBox[{"Total", "[", "listofresponses", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7531943878534822`*^9, 3.753194507409899*^9}, {
+  3.7532099621788464`*^9, 
+  3.7532099769060555`*^9}},ExpressionUUID->"7c953f7d-c9af-48d4-a217-\
+adb6013c414e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ResponseScoreFromCategories", "[", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "0", ",", "0", ",", "0"}], "}"}], "]"}], "//", 
+  "N"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ResponseScoreFromCategories", "[", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "1", ",", "1"}], "}"}], "]"}], "//", 
+  "N"}]}], "Input",
+ CellChangeTimes->{{3.7531944847087135`*^9, 
+  3.753194529006849*^9}},ExpressionUUID->"0d18f84e-b662-41ad-9c36-\
+a243591f24c7"],
+
+Cell[BoxData["1.`"], "Output",
+ CellChangeTimes->{{3.7531945157646017`*^9, 3.7531945294593444`*^9}, 
+   3.753194757872978*^9, 3.753195859436301*^9, 3.753209979482038*^9, 
+   3.753397845167392*^9, 3.76210372176568*^9, 3.762104210868424*^9, 
+   3.762104770734465*^9, 3.786204020623798*^9, 
+   3.786277605988901*^9},ExpressionUUID->"603ee4e6-1ec1-4041-9b06-\
+b6a1863f0e1d"],
+
+Cell[BoxData["0.5`"], "Output",
+ CellChangeTimes->{{3.7531945157646017`*^9, 3.7531945294593444`*^9}, 
+   3.753194757872978*^9, 3.753195859436301*^9, 3.753209979482038*^9, 
+   3.753397845167392*^9, 3.76210372176568*^9, 3.762104210868424*^9, 
+   3.762104770734465*^9, 3.786204020623798*^9, 
+   3.786277606004524*^9},ExpressionUUID->"b4d08c19-4bb7-47ee-873c-\
+052bc17978fd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"MeanResponsePerTumorType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{
+        RowBox[{"ResponseScoreFromCategories", "[", 
+         RowBox[{
+         "VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+          RowBox[{"i", ",", 
+           RowBox[{"2", ";;"}]}], "\[RightDoubleBracket]"}], "]"}], "//", 
+        "N"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "TumorTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MeanResponsePerTumorType", "//", "TableForm"}]}], "Input",
+ CellChangeTimes->{{3.727393202509058*^9, 3.727393335914688*^9}, {
+  3.7531483188604193`*^9, 3.7531483330672317`*^9}, {3.753194588276964*^9, 
+  3.7531946462636847`*^9}, {3.753200959707803*^9, 
+  3.753200961315646*^9}},ExpressionUUID->"24e2cb8b-c1ec-47f1-950b-\
+cb4382177132"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Synovial sarcoma\"\>", "0.06666666666666667`"},
+    {"\<\"Dermatofibrosarcoma protuberans\"\>", "0.9090909090909092`"},
+    {"\<\"Leiomyosarcoma\"\>", "0.`"},
+    {"\<\"Liposarcoma\"\>", "0.`"},
+    {"\<\"Chondrosarcoma\"\>", "0.`"},
+    {"\<\"Ewing's sarcoma\"\>", "0.`"},
+    {"\<\"Angiosarcoma\"\>", "0.`"},
+    {"\<\"Rhabdomyosarcoma\"\>", "0.`"},
+    {"\<\"Aggressive fibromatosis\"\>", "0.11764705882352941`"},
+    {"\<\"Chordoma\"\>", "0.`"},
+    {"\<\"Desmoplastic small round cell tumor\"\>", "0.`"},
+    {"\<\"Neurofibrosarcoma\"\>", "0.`"},
+    {"\<\"Malignant schwannoma\"\>", "0.`"},
+    {"\<\"Osteosarcoma\"\>", "0.`"},
+    {"\<\"Adenoid cystic carcinoma\"\>", "0.`"},
+    {"\<\"mesothelioma\"\>", "0.`"},
+    {"\<\"Malignant melanoma\"\>", "0.`"},
+    {"\<\"Intraocular melanoma\"\>", "0.`"},
+    {"\<\"Breast carcinoma\"\>", "0.`"},
+    {"\<\"Hypereosinophilic syndrome\"\>", "0.46153846153846156`"},
+    {"\<\"Multiple myeloma\"\>", "0.`"},
+    {"\<\"Myelofibrosis\"\>", "0.`"},
+    {"\<\"Myeloproliferative disorders\"\>", "0.6666666666666666`"},
+    {"\<\"Systemic mastocytosis\"\>", "0.5`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.7273932252083564`*^9, 3.727393233748845*^9}, {
+   3.7273932885679803`*^9, 3.727393337210763*^9}, 3.727702904929474*^9, 
+   3.7289381990964394`*^9, 3.730653633126669*^9, 3.7317607579940815`*^9, 
+   3.7317612741946063`*^9, 3.732448699621722*^9, 3.733235309214446*^9, 
+   3.733235506167864*^9, 3.7332390241211557`*^9, 3.7332528317440057`*^9, 
+   3.7354035953447266`*^9, 3.7372431311094217`*^9, 3.740493914885613*^9, 
+   3.740502332684534*^9, 3.7405025432378454`*^9, 3.740733104875386*^9, 
+   3.7407333552472987`*^9, 3.740733692966073*^9, 3.740734375831996*^9, 
+   3.7407370559347496`*^9, 3.740824338558755*^9, 3.7409941301037073`*^9, 
+   3.7409960137719545`*^9, 3.7410098296908855`*^9, 3.7412672658041244`*^9, {
+   3.7531483007393827`*^9, 3.7531483341342926`*^9}, 3.7531483656390944`*^9, 
+   3.7531946474310503`*^9, 3.7531947586576147`*^9, 3.7531958603533516`*^9, 
+   3.75320096168983*^9, {3.7532099823495426`*^9, 3.7532099875204096`*^9}, 
+   3.75339784566042*^9, 3.7621037218035746`*^9, 3.7621042109402747`*^9, 
+   3.7621047708162456`*^9, 3.7862040206936097`*^9, 
+   3.786277606164323*^9},ExpressionUUID->"7126a81c-368b-4d19-8fa1-\
+ebcc809796a7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["simulating null hypothesis for one case", "Subsubsection",
+ CellChangeTimes->{{3.753194775011096*^9, 3.753194793981189*^9}, {
+  3.7533978463134575`*^9, 
+  3.7533978468874903`*^9}},ExpressionUUID->"4060e2db-735d-4d4e-be6a-\
+6d7fd9d037f4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["NullDistribution"], "Input",ExpressionUUID->"e4e90ae4-a041-45fa-ac8f-0a6dfc5f07bd"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.08275862068965517`", ",", "0.08275862068965517`", ",", 
+   "0.25517241379310346`", ",", "0.5793103448275863`"}], "}"}]], "Output",
+ CellChangeTimes->{3.7531952947204733`*^9, 3.7531958655978885`*^9, 
+  3.7532099890413156`*^9, 3.7533978476785355`*^9, 3.7621037218334856`*^9, 
+  3.7621042109900928`*^9, 3.762104770919175*^9, 3.7862040207544503`*^9, 
+  3.7862776063426847`*^9},ExpressionUUID->"d9d56614-69a5-4887-969f-\
+ecb16ed06230"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"simulatesubpopulation", "[", "populationsize_", "]"}], ":=", 
+  RowBox[{"Total", "[", 
+   RowBox[{"RandomChoice", "[", 
+    RowBox[{
+     RowBox[{"NullDistribution", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "1", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+     "populationsize"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.753195267960063*^9, 3.753195280391551*^9}, {
+  3.7531953153980103`*^9, 3.7531953549364147`*^9}, {3.753195529595104*^9, 
+  3.7531955458232975`*^9}},ExpressionUUID->"7770acce-8962-4ba1-9ca7-\
+7d15aa304a44"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"simulatesubpopulation", "[", "5", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"simulatesubpopulation", "[", "10", "]"}]}], "Input",
+ CellChangeTimes->{{3.753195363828076*^9, 3.7531953700137615`*^9}, {
+  3.753195536056592*^9, 
+  3.7531955561427393`*^9}},ExpressionUUID->"fbf65448-2e03-4f60-a867-\
+9e1070ad11ce"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2", ",", "0", ",", "1", ",", "2"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7531953601682086`*^9, 3.753195386678867*^9}, {
+   3.753195533558652*^9, 3.7531955564959736`*^9}, 3.7531958668268647`*^9, 
+   3.7532099922788553`*^9, 3.7533978487455964`*^9, 3.762103721882351*^9, 
+   3.762104211078861*^9, 3.762104771087258*^9, 3.786204020873131*^9, 
+   3.786277606944292*^9},ExpressionUUID->"5c10ad58-36ed-436d-b5cf-\
+0d4e23baaf66"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", "0", ",", "6", ",", "4"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7531953601682086`*^9, 3.753195386678867*^9}, {
+   3.753195533558652*^9, 3.7531955564959736`*^9}, 3.7531958668268647`*^9, 
+   3.7532099922788553`*^9, 3.7533978487455964`*^9, 3.762103721882351*^9, 
+   3.762104211078861*^9, 3.762104771087258*^9, 3.786204020873131*^9, 
+   3.786277606966423*^9},ExpressionUUID->"a6fc939c-839a-4bfa-b608-\
+fdd6631c5a06"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["simulating whole trial under the null hypothesis", "Subsubsection",
+ CellChangeTimes->{{3.7404939235129733`*^9, 3.7404939284587183`*^9}, {
+  3.753194786567377*^9, 
+  3.753194789914198*^9}},ExpressionUUID->"c47f04e6-1701-4537-bbea-\
+6c9c35e68ff3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+  RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}]], "Input",
+ CellChangeTimes->{{3.753195891551198*^9, 
+  3.7531958938420715`*^9}},ExpressionUUID->"f626a520-8d9c-49fd-87c1-\
+e5cede4ef1a1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Synovial sarcoma\"\>", 
+   ",", "\<\"Dermatofibrosarcoma protuberans\"\>", 
+   ",", "\<\"Leiomyosarcoma\"\>", ",", "\<\"Liposarcoma\"\>", 
+   ",", "\<\"Chondrosarcoma\"\>", ",", "\<\"Ewing's sarcoma\"\>", 
+   ",", "\<\"Angiosarcoma\"\>", ",", "\<\"Rhabdomyosarcoma\"\>", 
+   ",", "\<\"Aggressive fibromatosis\"\>", ",", "\<\"Chordoma\"\>", 
+   ",", "\<\"Desmoplastic small round cell tumor\"\>", 
+   ",", "\<\"Neurofibrosarcoma\"\>", ",", "\<\"Malignant schwannoma\"\>", 
+   ",", "\<\"Osteosarcoma\"\>", ",", "\<\"Adenoid cystic carcinoma\"\>", 
+   ",", "\<\"mesothelioma\"\>", ",", "\<\"Malignant melanoma\"\>", 
+   ",", "\<\"Intraocular melanoma\"\>", ",", "\<\"Breast carcinoma\"\>", 
+   ",", "\<\"Hypereosinophilic syndrome\"\>", ",", "\<\"Multiple myeloma\"\>",
+    ",", "\<\"Myelofibrosis\"\>", ",", "\<\"Myeloproliferative disorders\"\>",
+    ",", "\<\"Systemic mastocytosis\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.753195894303423*^9, 3.753209998436805*^9, 
+  3.753397850015669*^9, 3.762103721923246*^9, 3.7621042111745996`*^9, 
+  3.7621047712687654`*^9, 3.7862040209409475`*^9, 
+  3.786277607128792*^9},ExpressionUUID->"51b7de15-2849-44a1-90cc-\
+38a4870d13b6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PatientsPerTumorType", "=", 
+  RowBox[{"Map", "[", 
+   RowBox[{"Total", ",", 
+    RowBox[{"VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+     RowBox[{"All", ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "3", ",", "4", ",", "5"}], "}"}]}], 
+     "\[RightDoubleBracket]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7531959048843613`*^9, 
+  3.753195922888193*^9}},ExpressionUUID->"7412ecc1-490e-4643-b8d4-\
+5d1b903d99b1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "15.`", ",", "11.`", ",", "9.`", ",", "11.`", ",", "6.`", ",", "3.`", ",", 
+   "2.`", ",", "2.`", ",", "17.`", ",", "4.`", ",", "5.`", ",", "2.`", ",", 
+   "1.`", ",", "2.`", ",", "11.`", ",", "3.`", ",", "4.`", ",", "3.`", ",", 
+   "1.`", ",", "13.`", ",", "6.`", ",", "6.`", ",", "6.`", ",", "2.`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.7531959154672556`*^9, 3.753195926847703*^9}, 
+   3.753397850522698*^9, 3.7621037219561543`*^9, 3.762104211255389*^9, 
+   3.7621047714019613`*^9, 3.786204021010761*^9, 
+   3.7862776074137335`*^9},ExpressionUUID->"e5e06f88-b111-45bf-a38d-\
+a5be760c5055"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"samplesize", "=", 
+   SuperscriptBox["10", "7"]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ManySamplesOfTrialMatchedSize", "=", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"VolumeChangeMeasurementsAndTumorType", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ResponseScoreFromCategories", "[", 
+           RowBox[{"simulatesubpopulation", "[", 
+            RowBox[{
+            "PatientsPerTumorType", "\[LeftDoubleBracket]", "i", 
+             "\[RightDoubleBracket]"}], "]"}], "]"}], "//", "N"}], ",", 
+         RowBox[{"{", "samplesize", "}"}]}], "]"}]}], "}"}], 
+     "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "VolumeChangeMeasurementsAndTumorType", "]"}]}],
+       "}"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7273933536107006`*^9, 3.7273934437218547`*^9}, {
+  3.7273934739945865`*^9, 3.7273935439625883`*^9}, {3.730653650058637*^9, 
+  3.7306536502366476`*^9}, {3.7531959329135923`*^9, 3.7531959330522337`*^9}, {
+  3.7531960606556835`*^9, 3.7531961124291477`*^9}, {3.7531961580745764`*^9, 
+  3.75319623940979*^9}, {3.753200341460276*^9, 3.7532003420086255`*^9}, {
+  3.7621042023706694`*^9, 3.7621042063560114`*^9}, {3.762104764335802*^9, 
+  3.762104765734064*^9}, {3.7862775557122746`*^9, 
+  3.786277555862197*^9}},ExpressionUUID->"9d53e2ab-f798-4ec3-b853-\
+5a621630d7a1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["P-value for larger benefit", "Subsection",
+ CellChangeTimes->{{3.7277036851481*^9, 3.727703692622527*^9}, {
+  3.7306565746389136`*^9, 3.7306566012094336`*^9}, {3.731761361928624*^9, 
+  3.7317613626806674`*^9}, {3.753201733076607*^9, 
+  3.753201735518402*^9}},ExpressionUUID->"7bd2d0d8-359a-42a3-aef3-\
+98f8f6383c74"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PValuesByTumorType", "=", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"ManySamplesOfTrialMatchedSize", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"ManySamplesOfTrialMatchedSize", "\[LeftDoubleBracket]", 
+             RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+            RowBox[{
+             RowBox[{"#", ">=", 
+              RowBox[{"MeanResponsePerTumorType", "\[LeftDoubleBracket]", 
+               RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+           "]"}], "]"}], "/", "samplesize"}], "//", "N"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "ManySamplesOfTrialMatchedSize", "]"}]}], 
+      "}"}]}], "]"}], "\[LeftDoubleBracket]", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "9", ",", 
+     "10", ",", "11", ",", "15", ",", "16", ",", "17", ",", "18", ",", "20", 
+     ",", "21", ",", "22", ",", "23"}], "}"}], 
+   "\[RightDoubleBracket]"}]}]], "Input",
+ CellChangeTimes->{{3.7277030928732233`*^9, 3.727703140677958*^9}, {
+   3.7277033953355236`*^9, 3.7277034125345073`*^9}, {3.728938249919346*^9, 
+   3.7289382566077285`*^9}, 3.753148881882622*^9, {3.753201742547226*^9, 
+   3.753201751390261*^9}, {3.7532022074076157`*^9, 
+   3.75320225465866*^9}},ExpressionUUID->"5aa6329a-ae23-4f1d-abce-\
+52e873ea081d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"Synovial sarcoma\"\>", ",", "0.9336812`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Dermatofibrosarcoma protuberans\"\>", ",", "1.`*^-7"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Leiomyosarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Liposarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Chondrosarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Ewing's sarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Aggressive fibromatosis\"\>", ",", "0.7980889`"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Chordoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Desmoplastic small round cell tumor\"\>", ",", "1.`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Adenoid cystic carcinoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"mesothelioma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Malignant melanoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Intraocular melanoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Hypereosinophilic syndrome\"\>", ",", "0.0122097`"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Multiple myeloma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Myelofibrosis\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"Myeloproliferative disorders\"\>", ",", "0.0084257`"}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.7277030970884647`*^9, 3.72770314333611*^9}, 
+   3.7277034145356216`*^9, 3.7277037430444117`*^9, {3.7289382355405235`*^9, 
+   3.7289382591308727`*^9}, 3.7317611538737245`*^9, 3.7317613760934343`*^9, 
+   3.7332355585786257`*^9, 3.7332390727822175`*^9, 3.7405026036055202`*^9, 
+   3.7407331622343254`*^9, 3.740733407887803*^9, 3.7407344246600866`*^9, 
+   3.740737115477193*^9, 3.753148898336563*^9, 3.753202217016837*^9, {
+   3.753202253440322*^9, 3.7532022724485254`*^9}, 3.7533996327276344`*^9, 
+   3.762104306867757*^9, 3.7621055018519273`*^9, 3.762105925846662*^9, 
+   3.786204415068967*^9, 
+   3.786282167151149*^9},ExpressionUUID->"70020db6-ca89-4b3d-b441-\
+0e6f144d1897"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SortedPValues", "=", 
+   RowBox[{
+    RowBox[{"Join", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Range", "[", 
+        RowBox[{"Length", "[", "PValuesByTumorType", "]"}], "]"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"Sort", "[", 
+        RowBox[{"PValuesByTumorType", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+           "#1", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], "<", 
+           RowBox[{
+           "#2", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], 
+          "&"}]}], "]"}], "\[Transpose]"}]}], "]"}], "\[Transpose]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"SortedPValues", "//", "TableForm"}]}], "Input",
+ CellChangeTimes->{{3.727703145222218*^9, 3.727703146902314*^9}, {
+  3.7277033717821765`*^9, 3.727703389798207*^9}, {3.7277034545179086`*^9, 
+  3.727703509653062*^9}, {3.728938266217278*^9, 3.7289382663452854`*^9}, {
+  3.75314894129202*^9, 3.7531489416100383`*^9}, {3.7532022631158495`*^9, 
+  3.753202264420424*^9}},ExpressionUUID->"51b270b1-9cbe-478c-a920-\
+c60111d27fd7"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "\<\"Dermatofibrosarcoma protuberans\"\>", "1.`*^-7"},
+    {"2", "\<\"Myeloproliferative disorders\"\>", "0.0084257`"},
+    {"3", "\<\"Hypereosinophilic syndrome\"\>", "0.0122097`"},
+    {"4", "\<\"Aggressive fibromatosis\"\>", "0.7980889`"},
+    {"5", "\<\"Synovial sarcoma\"\>", "0.9336812`"},
+    {"6", "\<\"Myelofibrosis\"\>", "1.`"},
+    {"7", "\<\"Multiple myeloma\"\>", "1.`"},
+    {"8", "\<\"Intraocular melanoma\"\>", "1.`"},
+    {"9", "\<\"Malignant melanoma\"\>", "1.`"},
+    {"10", "\<\"mesothelioma\"\>", "1.`"},
+    {"11", "\<\"Adenoid cystic carcinoma\"\>", "1.`"},
+    {"12", "\<\"Desmoplastic small round cell tumor\"\>", "1.`"},
+    {"13", "\<\"Chordoma\"\>", "1.`"},
+    {"14", "\<\"Ewing's sarcoma\"\>", "1.`"},
+    {"15", "\<\"Chondrosarcoma\"\>", "1.`"},
+    {"16", "\<\"Liposarcoma\"\>", "1.`"},
+    {"17", "\<\"Leiomyosarcoma\"\>", "1.`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.7277031473513393`*^9, {3.727703380564679*^9, 3.7277033844659023`*^9}, 
+   3.7277034163807273`*^9, {3.7277034716498885`*^9, 3.7277035102190943`*^9}, 
+   3.727703743090414*^9, {3.728938239197733*^9, 3.728938266930319*^9}, 
+   3.7317611578189497`*^9, 3.731761384688926*^9, 3.733235558661847*^9, 
+   3.733239072859419*^9, 3.740502610652234*^9, 3.740733162307732*^9, 
+   3.74073340797262*^9, 3.7407344247508535`*^9, 3.7407371155679636`*^9, {
+   3.753148937640811*^9, 3.7531489579219713`*^9}, 3.753202274025178*^9, 
+   3.7533996356668024`*^9, 3.762104306943555*^9, 3.7621055018907976`*^9, 
+   3.7621059259025135`*^9, 3.7862044152056274`*^9, 
+   3.7862821672358036`*^9},ExpressionUUID->"fb2ff1ee-d6b7-45ba-b056-\
+c51f37a98504"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SortedPValuesForTissueTypes", "=", "SortedPValues"}]], "Input",
+ CellChangeTimes->{{3.740503259425644*^9, 3.7405033000585575`*^9}, 
+   3.753149069386347*^9},ExpressionUUID->"10cd706a-b10e-4b57-bd05-\
+dab116be88c2"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "\<\"Dermatofibrosarcoma protuberans\"\>", ",", "1.`*^-7"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "2", ",", "\<\"Myeloproliferative disorders\"\>", ",", "0.0084257`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "3", ",", "\<\"Hypereosinophilic syndrome\"\>", ",", "0.0122097`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", "\<\"Aggressive fibromatosis\"\>", ",", "0.7980889`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"5", ",", "\<\"Synovial sarcoma\"\>", ",", "0.9336812`"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"6", ",", "\<\"Myelofibrosis\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"7", ",", "\<\"Multiple myeloma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"8", ",", "\<\"Intraocular melanoma\"\>", ",", "1.`"}], "}"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"9", ",", "\<\"Malignant melanoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"10", ",", "\<\"mesothelioma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"11", ",", "\<\"Adenoid cystic carcinoma\"\>", ",", "1.`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "12", ",", "\<\"Desmoplastic small round cell tumor\"\>", ",", "1.`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"13", ",", "\<\"Chordoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"14", ",", "\<\"Ewing's sarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"15", ",", "\<\"Chondrosarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"16", ",", "\<\"Liposarcoma\"\>", ",", "1.`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"17", ",", "\<\"Leiomyosarcoma\"\>", ",", "1.`"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.7405033026991615`*^9, 3.740734494819344*^9, 
+  3.7531490698763742`*^9, 3.7532097167820573`*^9, 3.7533996467444363`*^9, 
+  3.762104306975477*^9, 3.7621055019077783`*^9, 3.762105926083064*^9, 
+  3.786204415257482*^9, 
+  3.7862821672761106`*^9},ExpressionUUID->"f7049c49-95ff-40f9-9108-\
+01d244da2316"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"SortedPValuesForTissueTypes", "\[LeftDoubleBracket]", 
+       RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+      RowBox[{"SortedPValuesForTissueTypes", "\[LeftDoubleBracket]", 
+       RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+      RowBox[{"SortedPValuesForTissueTypes", "\[LeftDoubleBracket]", 
+       RowBox[{"i", ",", "3"}], "\[RightDoubleBracket]"}], ",", 
+      RowBox[{"(*", " ", 
+       RowBox[{"benjamini", "-", 
+        RowBox[{"hochberg", " ", "critical", " ", 
+         RowBox[{"value", ":", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"i", "/", "m"}], ")"}], "*", "Q"}]}]}]}], " ", "*)"}], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", "i", ")"}], "/", 
+          RowBox[{"Length", "[", "SortedPValuesForTissueTypes", "]"}]}], "*", 
+         RowBox[{"(*", " ", 
+          RowBox[{"Q", " ", "=", " ", "0.25"}], " ", "*)"}], "0.25"}], "//", 
+        "N"}], ")"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{"Length", "[", "SortedPValuesForTissueTypes", "]"}]}], "}"}]}], 
+   "]"}], "//", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.762103705279634*^9, 
+  3.762103705396324*^9}},ExpressionUUID->"b89b08d4-ffb4-40e5-a7db-\
+d81e1564d231"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "\<\"Dermatofibrosarcoma protuberans\"\>", "1.`*^-7", 
+     "0.014705882352941176`"},
+    {"2", "\<\"Myeloproliferative disorders\"\>", "0.0084257`", 
+     "0.029411764705882353`"},
+    {"3", "\<\"Hypereosinophilic syndrome\"\>", "0.0122097`", 
+     "0.04411764705882353`"},
+    {"4", "\<\"Aggressive fibromatosis\"\>", "0.7980889`", 
+     "0.058823529411764705`"},
+    {"5", "\<\"Synovial sarcoma\"\>", "0.9336812`", "0.07352941176470588`"},
+    {"6", "\<\"Myelofibrosis\"\>", "1.`", "0.08823529411764706`"},
+    {"7", "\<\"Multiple myeloma\"\>", "1.`", "0.10294117647058823`"},
+    {"8", "\<\"Intraocular melanoma\"\>", "1.`", "0.11764705882352941`"},
+    {"9", "\<\"Malignant melanoma\"\>", "1.`", "0.1323529411764706`"},
+    {"10", "\<\"mesothelioma\"\>", "1.`", "0.14705882352941177`"},
+    {"11", "\<\"Adenoid cystic carcinoma\"\>", "1.`", "0.16176470588235295`"},
+    {"12", "\<\"Desmoplastic small round cell tumor\"\>", "1.`", 
+     "0.17647058823529413`"},
+    {"13", "\<\"Chordoma\"\>", "1.`", "0.19117647058823528`"},
+    {"14", "\<\"Ewing's sarcoma\"\>", "1.`", "0.20588235294117646`"},
+    {"15", "\<\"Chondrosarcoma\"\>", "1.`", "0.22058823529411764`"},
+    {"16", "\<\"Liposarcoma\"\>", "1.`", "0.23529411764705882`"},
+    {"17", "\<\"Leiomyosarcoma\"\>", "1.`", "0.25`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.7533996536398306`*^9, 3.7621043070133677`*^9, 
+  3.762105501923736*^9, 3.7621059261249657`*^9, 3.7862044153073483`*^9, 
+  3.7862821673243523`*^9},ExpressionUUID->"1b578f2b-07b1-4b68-b6f8-\
+a50e73417fea"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{638, 628},
+WindowMargins->{{-7, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 168, 3, 96, "Title",ExpressionUUID->"0ee4d973-7dc1-4e2e-bbbf-7b31c4f5ffdd"],
+Cell[751, 27, 201, 4, 28, "Input",ExpressionUUID->"43d61af5-d8b4-4685-8e37-a91d91fea150"],
+Cell[955, 33, 552, 13, 28, "Input",ExpressionUUID->"3f0704e5-2254-4c0a-89bb-1535e67281c6"],
+Cell[CellGroupData[{
+Cell[1532, 50, 253, 4, 105, "Section",ExpressionUUID->"3a42882b-6b06-417e-a757-2a67c85343d4"],
+Cell[CellGroupData[{
+Cell[1810, 58, 1022, 25, 105, "Input",ExpressionUUID->"e6f137c9-6d34-42fa-a633-71d834f10748"],
+Cell[2835, 85, 404, 7, 32, "Output",ExpressionUUID->"d085187b-7d81-4336-b8f8-973e8aa34ce4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3276, 97, 732, 18, 105, "Input",ExpressionUUID->"169a3f87-fdb4-4d88-be87-4bd16eee8fe1"],
+Cell[4011, 117, 499, 10, 32, "Output",ExpressionUUID->"78762ceb-8610-4362-8379-03762898e45e"],
+Cell[4513, 129, 357, 6, 32, "Output",ExpressionUUID->"d39ea82c-5d1e-4d10-9cb4-d6478841add0"]
+}, Open  ]],
+Cell[4885, 138, 1025, 25, 67, "Input",ExpressionUUID->"1ba18425-d139-44f7-aea9-3ad831346b02"],
+Cell[CellGroupData[{
+Cell[5935, 167, 117, 0, 28, "Input",ExpressionUUID->"69a4e21a-5142-4f52-89f0-792e26690795"],
+Cell[6055, 169, 3820, 85, 337, "Output",ExpressionUUID->"55feb3b4-964d-46ee-b749-c9587281ecd6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9912, 259, 1624, 39, 124, "Input",ExpressionUUID->"c833716e-7d83-4e2b-8d8f-83068e110406"],
+Cell[11539, 300, 1913, 44, 436, "Output",ExpressionUUID->"9da1d8cb-d521-41c6-bd35-763f715822ae"]
+}, Open  ]],
+Cell[13467, 347, 943, 26, 67, "Input",ExpressionUUID->"7c953f7d-c9af-48d4-a217-adb6013c414e"],
+Cell[CellGroupData[{
+Cell[14435, 377, 483, 13, 48, "Input",ExpressionUUID->"0d18f84e-b662-41ad-9c36-a243591f24c7"],
+Cell[14921, 392, 370, 6, 32, "Output",ExpressionUUID->"603ee4e6-1ec1-4041-9b06-b6a1863f0e1d"],
+Cell[15294, 400, 371, 6, 32, "Output",ExpressionUUID->"b4d08c19-4bb7-47ee-873c-052bc17978fd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15702, 411, 1086, 25, 124, "Input",ExpressionUUID->"24e2cb8b-c1ec-47f1-950b-cb4382177132"],
+Cell[16791, 438, 2791, 55, 436, "Output",ExpressionUUID->"7126a81c-368b-4d19-8fa1-ebcc809796a7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19619, 498, 243, 4, 44, "Subsubsection",ExpressionUUID->"4060e2db-735d-4d4e-be6a-6d7fd9d037f4"],
+Cell[CellGroupData[{
+Cell[19887, 506, 97, 0, 28, "Input",ExpressionUUID->"e4e90ae4-a041-45fa-ac8f-0a6dfc5f07bd"],
+Cell[19987, 508, 475, 9, 32, "Output",ExpressionUUID->"d9d56614-69a5-4887-969f-ecb16ed06230"]
+}, Open  ]],
+Cell[20477, 520, 893, 21, 105, "Input",ExpressionUUID->"7770acce-8962-4ba1-9ca7-7d15aa304a44"],
+Cell[CellGroupData[{
+Cell[21395, 545, 331, 6, 48, "Input",ExpressionUUID->"fbf65448-2e03-4f60-a867-9e1070ad11ce"],
+Cell[21729, 553, 464, 8, 32, "Output",ExpressionUUID->"5c10ad58-36ed-436d-b5cf-0d4e23baaf66"],
+Cell[22196, 563, 464, 8, 32, "Output",ExpressionUUID->"a6fc939c-839a-4bfa-b608-fdd6631c5a06"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22709, 577, 252, 4, 44, "Subsubsection",ExpressionUUID->"c47f04e6-1701-4537-bbea-6c9c35e68ff3"],
+Cell[CellGroupData[{
+Cell[22986, 585, 281, 5, 28, "Input",ExpressionUUID->"f626a520-8d9c-49fd-87c1-e5cede4ef1a1"],
+Cell[23270, 592, 1219, 20, 166, "Output",ExpressionUUID->"51b7de15-2849-44a1-90cc-38a4870d13b6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24526, 617, 467, 11, 48, "Input",ExpressionUUID->"7412ecc1-490e-4643-b8d4-5d1b903d99b1"],
+Cell[24996, 630, 640, 12, 52, "Output",ExpressionUUID->"e5e06f88-b111-45bf-a38d-a5be760c5055"]
+}, Open  ]],
+Cell[25651, 645, 1605, 34, 143, "Input",ExpressionUUID->"9d53e2ab-f798-4ec3-b853-5a621630d7a1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27293, 684, 322, 5, 53, "Subsection",ExpressionUUID->"7bd2d0d8-359a-42a3-aef3-98f8f6383c74"],
+Cell[CellGroupData[{
+Cell[27640, 693, 1625, 36, 124, "Input",ExpressionUUID->"5aa6329a-ae23-4f1d-abce-52e873ea081d"],
+Cell[29268, 731, 2286, 52, 174, "Output",ExpressionUUID->"70020db6-ca89-4b3d-b441-0e6f144d1897"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31591, 788, 1098, 26, 86, "Input",ExpressionUUID->"51b270b1-9cbe-478c-a920-c60111d27fd7"],
+Cell[32692, 816, 2121, 43, 319, "Output",ExpressionUUID->"fb2ff1ee-d6b7-45ba-b056-c51f37a98504"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34850, 864, 238, 4, 28, "Input",ExpressionUUID->"10cd706a-b10e-4b57-bd05-dab116be88c2"],
+Cell[35091, 870, 2125, 55, 212, "Output",ExpressionUUID->"f7049c49-95ff-40f9-9108-01d244da2316"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37253, 930, 1398, 34, 124, "Input",ExpressionUUID->"b89b08d4-ffb4-40e5-a7db-d81e1564d231"],
+Cell[38654, 966, 2026, 40, 319, "Output",ExpressionUUID->"1b578f2b-07b1-4b68-b6f8-a50e73417fea"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

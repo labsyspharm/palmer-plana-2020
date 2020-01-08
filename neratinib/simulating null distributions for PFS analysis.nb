@@ -1,0 +1,934 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     36085,        926]
+NotebookOptionsPosition[     35461,        908]
+NotebookOutlinePosition[     35809,        923]
+CellTagsIndexPosition[     35766,        920]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+ (*NOTE: the code in this section was submitted as a batch job through a \
+computing cluster. The output of these jobs are \
+\[OpenCurlyDoubleQuote]NULLHR.csv\[CloseCurlyDoubleQuote] files in this \
+folder. The other Mathematica notebooks in this folder input and analyze \
+those csv files*)\
+\>", "Section",
+ CellChangeTimes->{
+  3.7861892456559067`*^9, {3.786210159793185*^9, 
+   3.786210161006487*^9}},ExpressionUUID->"777f36ea-163b-46ed-89df-\
+17f2670bf646"],
+
+Cell[CellGroupData[{
+
+Cell["", "Chapter",
+ CellChangeTimes->{
+  3.7861892397077694`*^9},ExpressionUUID->"88e33ab6-3429-4b8c-958b-\
+1a6f698cfa0c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"data", "\[LeftDoubleBracket]", 
+    RowBox[{"1", ";;", "10"}], "\[RightDoubleBracket]"}], "//", "TableForm"}],
+   "\n"}], "\n", 
+ RowBox[{"BonferonniCorrectionForAllTumorAndMutationSubtypes", "=", 
+  RowBox[{
+  "Length", "[", "AllMutationTumorTypePairs", "]"}]}], "\n", "50", "\n", 
+ RowBox[{
+  RowBox[{"AllPFSMeasurements", "=", 
+   RowBox[{
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"data", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{"2", ";;"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"10", ",", "11"}], "}"}]}], "\[RightDoubleBracket]"}], ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+        "\[NotEqual]", "\"\<NA\>\""}], "&"}]}], "]"}], "/.", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<NO\>\"", "\[Rule]", "0"}], ",", 
+      RowBox[{"\"\<YES\>\"", "\[Rule]", "1"}]}], "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"RelativeRiskCalculation", "[", 
+   RowBox[{"descriptors_", ",", "eventdata_", ",", "PrintTable_"}], 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "set", " ", "to", " ", "1", " ", "to", " ", "print", " ", "out", " ", 
+     "the", " ", "statistical", " ", "table", " ", "of", " ", "Cox", " ", 
+     "Model", " ", "output"}], " ", "*)"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "MyModelFit", ",", "RelativeRisk", ",", 
+      "RelativeRiskLowerConfidenceInterval", ",", 
+      "RelativeRiskUpperConfidenceInterval", ",", "PValue"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"MyModelFit", "=", 
+      RowBox[{"CoxModelFit", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"descriptors", ",", "eventdata"}], "}"}], ",", 
+        RowBox[{"{", "treatment", "}"}], ",", 
+        RowBox[{"{", "treatment", "}"}], ",", 
+        RowBox[{"NominalVariables", "\[Rule]", "treatment"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"PrintTable", "\[Equal]", "1"}], ",", 
+       RowBox[{"Print", "[", 
+        RowBox[{"MyModelFit", "[", "\"\<ParameterTable\>\"", "]"}], "]"}]}], 
+      "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"RelativeRisk", "=", 
+      RowBox[{
+       RowBox[{"MyModelFit", "[", "\"\<RelativeRisk\>\"", "]"}], 
+       "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"RelativeRiskLowerConfidenceInterval", "=", 
+      RowBox[{
+       RowBox[{
+       "MyModelFit", "[", "\"\<RelativeRiskConfidenceIntervals\>\"", "]"}], 
+       "\[LeftDoubleBracket]", 
+       RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"RelativeRiskUpperConfidenceInterval", "=", 
+      RowBox[{
+       RowBox[{
+       "MyModelFit", "[", "\"\<RelativeRiskConfidenceIntervals\>\"", "]"}], 
+       "\[LeftDoubleBracket]", 
+       RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PValue", "=", 
+      RowBox[{
+       RowBox[{"MyModelFit", "[", "\"\<TestTable\>\"", "]"}], 
+       "\[LeftDoubleBracket]", 
+       RowBox[{"1", ",", "1", ",", 
+        RowBox[{"-", "1"}], ",", 
+        RowBox[{"-", "1"}]}], "\[RightDoubleBracket]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "RelativeRiskLowerConfidenceInterval", ",", "RelativeRisk", ",", 
+       "RelativeRiskUpperConfidenceInterval", ",", "PValue"}], "}"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+  "analysis", " ", "of", " ", "all", " ", "tumor", " ", "types", " ", "PFS"}],
+   "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "Extract", " ", "PFS", " ", "data", " ", "from", " ", "CSV", " ", 
+     "file"}], ",", " ", 
+    RowBox[{
+    "plot", " ", "all", " ", "values", " ", "from", " ", "largest", " ", "to",
+      " ", "smallest"}]}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"AllPFSMeasurements", "=", 
+   RowBox[{
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"data", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{"2", ";;"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"10", ",", "11"}], "}"}]}], "\[RightDoubleBracket]"}], ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+        "\[NotEqual]", "\"\<NA\>\""}], "&"}]}], "]"}], "/.", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<NO\>\"", "\[Rule]", "0"}], ",", 
+      RowBox[{"\"\<YES\>\"", "\[Rule]", "1"}]}], "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"BarChart", "[", 
+   RowBox[{
+    RowBox[{"Reverse", "[", 
+     RowBox[{"Sort", "[", 
+      RowBox[{"AllPFSMeasurements", "\[LeftDoubleBracket]", 
+       RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}], "]"}], "]"}], 
+    ",", " ", 
+    RowBox[{"PlotLabel", "\[Rule]", 
+     RowBox[{"Style", "[", 
+      RowBox[{
+      "\"\<Distribution of Progression-Free Survival Time (Months)\>\"", ",", 
+       RowBox[{"FontSize", "\[Rule]", "12"}], ",", " ", 
+       RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}]}]}], "]"}],
+   "\n", "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"PFSAndTumorType", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"data", "\[LeftDoubleBracket]", 
+      RowBox[{
+       RowBox[{"2", ";;"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"6", ",", "10", ",", "11"}], "}"}]}], 
+      "\[RightDoubleBracket]"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+       "\[NotEqual]", "\"\<NA\>\""}], "&"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PFSAndMutationTypeAll", "=", 
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"data", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{"2", ";;"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "10", ",", "11"}], "}"}]}], 
+       "\[RightDoubleBracket]"}], ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+        "\[NotEqual]", "\"\<NA\>\""}], "&"}]}], "]"}]}], ";"}], " "}], "\n", 
+ RowBox[{
+  RowBox[{"MutationTypesAll", "=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{
+     RowBox[{"Tally", "[", 
+      RowBox[{"data", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{"2", ";;"}], ",", "5"}], "\[RightDoubleBracket]"}], "]"}], 
+     ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#1", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+       ">", 
+       RowBox[{"#2", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}],
+       "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MutationTypesAll", "//", "TableForm"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "here", " ", "I", " ", "map", " ", "a", " ", "maximum", " ", "value", " ", 
+    "onto", " ", "PFS", " ", "time"}], " ", "*)"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"ERBB2hotspot", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "\"\<Exon20 Insertion Hotspot\>\"", ",", "\"\<L755 Hotspot\>\"", ",", 
+     "\"\<Other Hotspot\>\"", ",", "\"\<PKD Hotspot\>\"", ",", 
+     "\"\<S310 Hotspot\>\"", ",", "\"\<V777 Hotspot\>\""}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ERBB2nonhotspot", "=", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Other Nonhotspot\>\"", ",", "\"\<PKD Nonhotspot\>\""}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ERBB3hotspot", "=", 
+   RowBox[{"{", "\"\<ERBB3 Hotspot\>\"", "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ERBB3nonhotspot", "=", 
+   RowBox[{"{", "\"\<ERBB3 Nonhotspot\>\"", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ERBB2hotspotResponses", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"PFSAndMutationTypeAll", ",", 
+     RowBox[{
+      RowBox[{"MemberQ", "[", 
+       RowBox[{"ERBB2hotspot", ",", 
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}],
+        "]"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ERBB2nonhotspotResponses", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"PFSAndMutationTypeAll", ",", 
+     RowBox[{
+      RowBox[{"MemberQ", "[", 
+       RowBox[{"ERBB2nonhotspot", ",", 
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}],
+        "]"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ERBB3hotspotResponses", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"PFSAndMutationTypeAll", ",", 
+     RowBox[{
+      RowBox[{"MemberQ", "[", 
+       RowBox[{"ERBB3hotspot", ",", 
+        RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}],
+        "]"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ERBB3nonhotspotResponses", "=", 
+    RowBox[{"Select", "[", 
+     RowBox[{"PFSAndMutationTypeAll", ",", 
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"ERBB3nonhotspot", ",", 
+         RowBox[{
+         "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}],
+        "&"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TargetAndHotspotStratifiedResponses", "=", 
+    RowBox[{"Join", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<ERBB2 Hotspot\>\"", ",", 
+          RowBox[{"i", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+           ",", " ", 
+          RowBox[{
+          "i", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "ERBB2hotspotResponses"}], "}"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<ERBB2 Nonhotspot\>\"", ",", 
+          RowBox[{"i", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+           ",", " ", 
+          RowBox[{
+          "i", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "ERBB2nonhotspotResponses"}], "}"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<ERBB3 Hotspot\>\"", ",", 
+          RowBox[{"i", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+           ",", " ", 
+          RowBox[{
+          "i", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "ERBB3hotspotResponses"}], "}"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<ERBB3 Nonhotspot\>\"", ",", 
+          RowBox[{"i", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+           ",", " ", 
+          RowBox[{
+          "i", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "ERBB3nonhotspotResponses"}], "}"}]}], "]"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MutationTypes", "=", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<ERBB2 Hotspot\>\"", ",", "\"\<ERBB2 Nonhotspot\>\"", ",", 
+         "\"\<ERBB3 Hotspot\>\"", ",", "\"\<ERBB3 Nonhotspot\>\""}], "}"}], 
+       "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Length", "[", "ERBB2hotspotResponses", "]"}], ",", 
+         RowBox[{"Length", "[", "ERBB2nonhotspotResponses", "]"}], ",", 
+         RowBox[{"Length", "[", "ERBB3hotspotResponses", "]"}], ",", 
+         RowBox[{"Length", "[", "ERBB3nonhotspotResponses", "]"}]}], "}"}]}], 
+      "\[IndentingNewLine]", "}"}], "\[Transpose]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MutationTypes", "//", "TableForm"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MeanResponsePerMutationTypeAll", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"Mean", "[", 
+        RowBox[{
+         RowBox[{"Select", "[", 
+          RowBox[{"PFSAndMutationTypeAll", ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+             "\[Equal]", 
+             RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+              RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+          "]"}], "\[LeftDoubleBracket]", 
+         RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], "]"}]}], "}"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypesAll", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"MeanResponsePerMutationTypeAll", "//", 
+  "TableForm"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MedianResponsePerMutationTypeAll", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"Median", "[", 
+        RowBox[{
+         RowBox[{"Select", "[", 
+          RowBox[{"PFSAndMutationTypeAll", ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+             "\[Equal]", 
+             RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+              RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+          "]"}], "\[LeftDoubleBracket]", 
+         RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], "]"}]}], "}"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypesAll", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"MedianResponsePerMutationTypeAll", "//", 
+  "TableForm"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MeanResponsePerMutationType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"Mean", "[", 
+        RowBox[{
+         RowBox[{"Select", "[", 
+          RowBox[{"TargetAndHotspotStratifiedResponses", ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+             "\[Equal]", 
+             RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+              RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+          "]"}], "\[LeftDoubleBracket]", 
+         RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], "]"}]}], "}"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MeanResponsePerMutationType", "//", 
+  "TableForm"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MedianResponsePerMutationType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"Median", "[", 
+        RowBox[{
+         RowBox[{"Select", "[", 
+          RowBox[{"TargetAndHotspotStratifiedResponses", ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+             "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+             "\[Equal]", 
+             RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+              RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+          "]"}], "\[LeftDoubleBracket]", 
+         RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], "]"}]}], "}"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MedianResponsePerMutationType", "//", "TableForm"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AllTumorsEventTimes", "=", 
+   RowBox[{"AllPFSMeasurements", "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AllTumorsCensoring", "=", 
+   RowBox[{"AllPFSMeasurements", "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"PFSAndMutationTypeAll", "[", 
+   RowBox[{"[", 
+    RowBox[{"1", ",", "2"}], "]"}], "]"}], "\[IndentingNewLine]", 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"TumorTypes", "=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{
+     RowBox[{"Tally", "[", 
+      RowBox[{"data", "\[LeftDoubleBracket]", 
+       RowBox[{
+        RowBox[{"2", ";;"}], ",", "6"}], "\[RightDoubleBracket]"}], "]"}], 
+     ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#1", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+       ">", 
+       RowBox[{"#2", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}],
+       "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TumorTypes", "//", "TableForm"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"SetOfResponsesPerTumorType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Select", "[", 
+       RowBox[{"PFSAndTumorType", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+           "==", 
+          RowBox[{"TumorTypes", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+       "]"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\"\<NO\>\"", "\[Rule]", "0"}], ",", 
+        RowBox[{"\"\<YES\>\"", "\[Rule]", "1"}]}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "TumorTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetOfResponsesPerMutationType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Select", "[", 
+       RowBox[{"TargetAndHotspotStratifiedResponses", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+           "\[Equal]", 
+          RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+       "]"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\"\<NO\>\"", "\[Rule]", "0"}], ",", 
+        RowBox[{"\"\<YES\>\"", "\[Rule]", "1"}]}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetOfResponsesPerMutationTypeAll", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Select", "[", 
+       RowBox[{"PFSAndMutationTypeAll", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}],
+           "\[Equal]", 
+          RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "&"}]}], 
+       "]"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\"\<NO\>\"", "\[Rule]", "0"}], ",", 
+        RowBox[{"\"\<YES\>\"", "\[Rule]", "1"}]}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypesAll", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+   RowBox[{"Eventtimes_", ",", "Censoring_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "TreatmentLabels", ",", "SubgroupAndAllEventTimes", ",", 
+      "SubgroupAndAllCensoring", ",", "SubgroupAndAllEventData", ",", 
+      "lowerHR", ",", "HR", ",", "upperHR", ",", "Pvalue"}], "}"}], ",", 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"TreatmentLabels", "=", 
+      RowBox[{"Join", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{"\"\<Subgroup\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"Length", "[", "Eventtimes", "]"}], "}"}]}], "]"}], ",", 
+        RowBox[{"Table", "[", 
+         RowBox[{"\"\<All\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"Length", "[", "AllTumorsEventTimes", "]"}], "}"}]}], 
+         "]"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"SubgroupAndAllEventTimes", "=", 
+      RowBox[{"Join", "[", 
+       RowBox[{"Eventtimes", ",", "AllTumorsEventTimes"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"SubgroupAndAllCensoring", "=", 
+      RowBox[{"Join", "[", 
+       RowBox[{"Censoring", ",", "AllTumorsCensoring"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"SubgroupAndAllEventData", "=", 
+      RowBox[{"EventData", "[", 
+       RowBox[{"SubgroupAndAllEventTimes", ",", "SubgroupAndAllCensoring"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"lowerHR", ",", "HR", ",", "upperHR", ",", "Pvalue"}], "}"}], 
+      "=", 
+      RowBox[{"RelativeRiskCalculation", "[", 
+       RowBox[{"TreatmentLabels", ",", "SubgroupAndAllEventData", ",", "0"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"lowerHR", ",", "HR", ",", "upperHR", ",", "Pvalue"}], 
+      "}"}]}]}], "\[IndentingNewLine]", "]"}]}], "\n", 
+ RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+  RowBox[{
+   RowBox[{"SetOfResponsesPerTumorType", "\[LeftDoubleBracket]", 
+    RowBox[{"2", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+   RowBox[{"SetOfResponsesPerTumorType", "\[LeftDoubleBracket]", 
+    RowBox[{"2", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+  RowBox[{
+   RowBox[{"SetOfResponsesPerMutationType", "\[LeftDoubleBracket]", 
+    RowBox[{"2", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+   RowBox[{"SetOfResponsesPerMutationType", "\[LeftDoubleBracket]", 
+    RowBox[{"2", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+   RowBox[{
+    RowBox[{"SetOfResponsesPerMutationTypeAll", "\[LeftDoubleBracket]", 
+     RowBox[{"2", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+    RowBox[{"SetOfResponsesPerMutationTypeAll", "\[LeftDoubleBracket]", 
+     RowBox[{"2", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], "]"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"HRperTumorType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"TumorTypes", "\[LeftDoubleBracket]", 
+         RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+         RowBox[{
+          RowBox[{"SetOfResponsesPerTumorType", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], 
+          ",", 
+          RowBox[{"SetOfResponsesPerTumorType", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], 
+         "]"}]}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "TumorTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{"HRperTumorType", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<TUMOR TYPE\>\"", ",", "\"\<LOWER HR\>\"", ",", "\"\<HR\>\"", ",", 
+       "\"\<UPPER HR\>\"", ",", "\"\<P VALUE\>\""}], "}"}]}], "]"}], "//", 
+   "TableForm"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"HRperMutationType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+         RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+         RowBox[{
+          RowBox[{"SetOfResponsesPerMutationType", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], 
+          ",", 
+          RowBox[{"SetOfResponsesPerMutationType", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], 
+         "]"}]}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{"HRperMutationType", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<MUTATION TYPE\>\"", ",", "\"\<LOWER HR\>\"", ",", "\"\<HR\>\"", 
+       ",", "\"\<UPPER HR\>\"", ",", "\"\<P VALUE\>\""}], "}"}]}], "]"}], "//",
+    "TableForm"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"HRperMutationTypeAll", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+         RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"HazardRatioVersusAllTumorTypes", "[", 
+         RowBox[{
+          RowBox[{"SetOfResponsesPerMutationTypeAll", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], 
+          ",", 
+          RowBox[{"SetOfResponsesPerMutationTypeAll", "\[LeftDoubleBracket]", 
+           RowBox[{"i", ",", "All", ",", "3"}], "\[RightDoubleBracket]"}]}], 
+         "]"}]}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "MutationTypesAll", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Prepend", "[", 
+    RowBox[{"HRperMutationTypeAll", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<MUTATION TYPE ALL\>\"", ",", "\"\<LOWER HR\>\"", ",", "\"\<HR\>\"",
+        ",", "\"\<UPPER HR\>\"", ",", "\"\<P VALUE\>\""}], "}"}]}], "]"}], "//",
+    "TableForm"}], "\n", "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"MeanResponsePerTumorType", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"TumorTypes", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], ",", 
+       RowBox[{"HRperTumorType", "\[LeftDoubleBracket]", 
+        RowBox[{"i", ",", "3"}], "\[RightDoubleBracket]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "TumorTypes", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"MeanResponsePerTumorType", "//", 
+  "TableForm"}], "\[IndentingNewLine]", 
+ RowBox[{"MeanResponsePerMutationType", "//", 
+  "TableForm"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MeanResponsePerMutationTypeAll", "//", "TableForm"}], "\n", 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CalculateHRFromSubSample", "[", "samplesize_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "SubSample", ",", "SubSampleEventTimes", ",", "SubSampleCensoring", ",",
+        "TreatmentLabels", ",", "SubgroupAndAllEventTimes", ",", 
+       "SubgroupAndAllCensoring", ",", "SubgroupAndAllEventData", ",", 
+       "lowerHR", ",", "HR", ",", "upperHR", ",", "Pvalue"}], "}"}], ",", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SubSample", "=", 
+       RowBox[{"RandomSample", "[", 
+        RowBox[{"AllPFSMeasurements", ",", "samplesize"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SubSampleEventTimes", "=", 
+       RowBox[{"SubSample", "\[LeftDoubleBracket]", 
+        RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SubSampleCensoring", "=", 
+       RowBox[{"SubSample", "\[LeftDoubleBracket]", 
+        RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"TreatmentLabels", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{"\"\<Subgroup\>\"", ",", 
+           RowBox[{"{", "samplesize", "}"}]}], "]"}], ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{"\"\<All\>\"", ",", 
+           RowBox[{"{", 
+            RowBox[{"Length", "[", "AllTumorsEventTimes", "]"}], "}"}]}], 
+          "]"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SubgroupAndAllEventTimes", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{"SubSampleEventTimes", ",", "AllTumorsEventTimes"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"SubgroupAndAllCensoring", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{"SubSampleCensoring", ",", "AllTumorsCensoring"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"SubgroupAndAllEventData", "=", 
+       RowBox[{"EventData", "[", 
+        RowBox[{"SubgroupAndAllEventTimes", ",", "SubgroupAndAllCensoring"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"lowerHR", ",", "HR", ",", "upperHR", ",", "Pvalue"}], "}"}], 
+       "=", 
+       RowBox[{"RelativeRiskCalculation", "[", 
+        RowBox[{"TreatmentLabels", ",", "SubgroupAndAllEventData", ",", "0"}],
+         "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", "HR"}]}],
+     "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.7861898727864203`*^9, 
+  3.786189938336135*^9}},ExpressionUUID->"0db9a3e1-80e8-458d-84a6-\
+a70c1af79595"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "SimulateAndExportNullDistributionHRs", "[", "tumortypenumber_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"NumberOfRepeats", "=", 
+       RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"NullDistribution", "[", "tumortypenumber", "]"}], "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"CalculateHRFromSubSample", "[", 
+          RowBox[{"TumorTypes", "\[LeftDoubleBracket]", 
+           RowBox[{"tumortypenumber", ",", "2"}], "\[RightDoubleBracket]"}], 
+          "]"}], ",", 
+         RowBox[{"{", "NumberOfRepeats", "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Export", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+         RowBox[{"TumorTypes", "\[LeftDoubleBracket]", 
+          RowBox[{"tumortypenumber", ",", "1"}], "\[RightDoubleBracket]"}], 
+         "<>", "\"\<NullHRs.csv\>\""}], ",", 
+        RowBox[{"NullDistribution", "[", "tumortypenumber", "]"}], ",", 
+        "\"\<CSV\>\""}], "]"}]}]}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "SimulateAndExportNullDistributionHRsMutation", "[", "tumortypenumber_", 
+    "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"NumberOfRepeats", "=", 
+       RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"NullDistributionM", "[", "tumortypenumber", "]"}], "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"CalculateHRFromSubSample", "[", 
+          RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+           RowBox[{"tumortypenumber", ",", "2"}], "\[RightDoubleBracket]"}], 
+          "]"}], ",", 
+         RowBox[{"{", "NumberOfRepeats", "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Export", "[", 
+       RowBox[{
+        RowBox[{"StringJoin", "[", 
+         RowBox[{
+          RowBox[{"MutationTypes", "\[LeftDoubleBracket]", 
+           RowBox[{"tumortypenumber", ",", "1"}], "\[RightDoubleBracket]"}], 
+          ",", "\"\<NullHRs.csv\>\""}], "]"}], ",", 
+        RowBox[{"NullDistributionM", "[", "tumortypenumber", "]"}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "SimulateAndExportNullDistributionHRsMutationAll", "[", "tumortypenumber_", 
+   "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"NumberOfRepeats", "=", 
+      RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"NullDistributionMA", "[", "tumortypenumber", "]"}], "=", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"CalculateHRFromSubSample", "[", 
+         RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+          RowBox[{"tumortypenumber", ",", "2"}], "\[RightDoubleBracket]"}], 
+         "]"}], ",", 
+        RowBox[{"{", "NumberOfRepeats", "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{"StringJoin", "[", 
+        RowBox[{
+         RowBox[{"MutationTypesAll", "\[LeftDoubleBracket]", 
+          RowBox[{"tumortypenumber", ",", "1"}], "\[RightDoubleBracket]"}], 
+         ",", "\"\<NullHRs.csv\>\""}], "]"}], ",", 
+       RowBox[{"NullDistributionMA", "[", "tumortypenumber", "]"}]}], 
+      "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",ExpressionUUID->\
+"3403ca8b-55e2-40ed-93fd-dbe25639e020"]
+}, Open  ]]
+},
+WindowSize->{1280, 637},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 472, 10, 143, "Section",ExpressionUUID->"777f36ea-163b-46ed-89df-17f2670bf646"],
+Cell[CellGroupData[{
+Cell[1055, 34, 123, 3, 56, "Chapter",ExpressionUUID->"88e33ab6-3429-4b8c-958b-1a6f698cfa0c"],
+Cell[1181, 39, 30416, 772, 2632, "Input",ExpressionUUID->"0db9a3e1-80e8-458d-84a6-a70c1af79595"],
+Cell[31600, 813, 3845, 92, 409, "Input",ExpressionUUID->"3403ca8b-55e2-40ed-93fd-dbe25639e020"]
+}, Open  ]]
+}
+]
+*)
+

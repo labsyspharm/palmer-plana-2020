@@ -1,0 +1,79 @@
+Patient #,Volume Change,Tumor Type
+1,68,Gastroesophageal
+2,56,Ampulla of Vater
+3,48,Osteosarcoma
+4,47,Gastroesophageal
+5,36,Colorectal
+6,36,Endometrial
+7,23,Endometrial
+8,17,Colorectal
+9,17,Small intestine
+10,14,Colorectal
+11,13,Colorectal
+12,12,Endometrial
+13,11,Colorectal
+14,7,Colorectal
+15,3,Endometrial
+16,3,Cholangiocarcinoma
+17,2,Colorectal
+18,2,Colorectal
+19,-2,Colorectal
+20,-1,Colorectal
+21,-2,Ampulla of Vater
+22,-4,Colorectal
+23,-5,Colorectal
+24,-7,Colorectal
+25,-9,Colorectal
+26,-11,Colorectal
+27,-12,Endometrial
+28,-12,Pancreas
+29,-12,Colorectal
+30,-19,Cholangiocarcinoma
+31,-23,Cholangiocarcinoma
+32,-27,Endometrial
+33,-37,Unknown Primary
+34,-38,Colorectal
+35,-39,Colorectal
+36,-40,Pancreas
+37,-41,Pancreas
+38,-43,Colorectal
+39,-44,Endometrial
+40,-47,Colorectal
+41,-48,Colorectal
+42,-50,Small intestine
+43,-54,Colorectal
+44,-56,Pancreas
+45,-57,Colorectal
+46,-60,Colorectal
+47,-60,Colorectal
+48,-61,Small intestine
+49,-61,Endometrial
+50,-63,Colorectal
+51,-64,Endometrial
+52,-66,Colorectal
+53,-69,Colorectal
+54,-69,Colorectal
+55,-69,Neuroendocrine
+56,-75,Colorectal
+57,-77,Endometrial
+58,-83,Colorectal
+59,-83,Colorectal
+60,-84,Endometrial
+61,-85,Small intestine
+62,-90,Endometrial
+63,-100,Colorectal
+64,-100,Colorectal
+65,-100,Colorectal
+66,-100,Colorectal
+67,-100,Colorectal
+68,-100,Ampulla of Vater
+69,-100,Endometrial
+70,-100,Endometrial
+71,-100,Gastroesophageal
+72,-100,Small intestine
+73,-100,Pancreas
+74,-100,Gastroesophageal
+75,-100,Gastroesophageal
+76,-100,Prostate
+77,-100,Pancreas
+78,-100,Cholangiocarcinoma
