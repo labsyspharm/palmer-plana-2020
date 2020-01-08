@@ -1,1 +1,2 @@
 # palmer-plana-2020
+ Mathematica code and data files for article: "Comparing the efficacy of cancer therapies between subgroups in basket trials" https://doi.org/10.1101/401620. Each piece of source code is provided in a folder containing the code as a Mathematica Notebook (.nb file type), all source data required by the code, and the corresponding output of the code. With any source data kept within the same folder as the code, the Mathematica Notebook can be executed in Wolfram Mathematica version 11 by selecting ‘Evaluate Notebook’ from the ‘Evaluation’ menu.
