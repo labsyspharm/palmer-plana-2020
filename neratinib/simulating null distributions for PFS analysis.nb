@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     36085,        926]
-NotebookOptionsPosition[     35461,        908]
-NotebookOutlinePosition[     35809,        923]
-CellTagsIndexPosition[     35766,        920]
+NotebookDataLength[     36158,        928]
+NotebookOptionsPosition[     35534,        910]
+NotebookOutlinePosition[     35882,        925]
+CellTagsIndexPosition[     35839,        922]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -821,7 +821,7 @@ Cell[BoxData[{
      RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"NumberOfRepeats", "=", 
-       RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"10", "^", "6"}]}], ";", "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"NullDistribution", "[", "tumortypenumber", "]"}], "=", 
        RowBox[{"Table", "[", 
@@ -853,7 +853,7 @@ Cell[BoxData[{
      RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"NumberOfRepeats", "=", 
-       RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"10", "^", "6"}]}], ";", "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"NullDistributionM", "[", "tumortypenumber", "]"}], "=", 
        RowBox[{"Table", "[", 
@@ -883,7 +883,7 @@ Cell[BoxData[{
     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
     RowBox[{
      RowBox[{"NumberOfRepeats", "=", 
-      RowBox[{"10", "^", "7"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"10", "^", "6"}]}], ";", "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"NullDistributionMA", "[", "tumortypenumber", "]"}], "=", 
       RowBox[{"Table", "[", 
@@ -902,8 +902,10 @@ Cell[BoxData[{
           RowBox[{"tumortypenumber", ",", "1"}], "\[RightDoubleBracket]"}], 
          ",", "\"\<NullHRs.csv\>\""}], "]"}], ",", 
        RowBox[{"NullDistributionMA", "[", "tumortypenumber", "]"}]}], 
-      "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",ExpressionUUID->\
-"3403ca8b-55e2-40ed-93fd-dbe25639e020"]
+      "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.7876526900329227`*^9, 
+  3.7876526964951944`*^9}},ExpressionUUID->"3403ca8b-55e2-40ed-93fd-\
+dbe25639e020"]
 }, Open  ]]
 },
 WindowSize->{1280, 637},
@@ -926,7 +928,7 @@ Cell[558, 20, 472, 10, 143, "Section",ExpressionUUID->"777f36ea-163b-46ed-89df-1
 Cell[CellGroupData[{
 Cell[1055, 34, 123, 3, 56, "Chapter",ExpressionUUID->"88e33ab6-3429-4b8c-958b-1a6f698cfa0c"],
 Cell[1181, 39, 30416, 772, 2632, "Input",ExpressionUUID->"0db9a3e1-80e8-458d-84a6-a70c1af79595"],
-Cell[31600, 813, 3845, 92, 409, "Input",ExpressionUUID->"3403ca8b-55e2-40ed-93fd-dbe25639e020"]
+Cell[31600, 813, 3918, 94, 409, "Input",ExpressionUUID->"3403ca8b-55e2-40ed-93fd-dbe25639e020"]
 }, Open  ]]
 }
 ]
